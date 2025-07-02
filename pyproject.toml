@@ -1,0 +1,49 @@
+[project]
+name = "bidsstatmod_groupmods"
+version = "0.0.1"
+description = "A BIDS Stats Model Group Analysis Illustration using FitLins"
+readme = "README.md"
+authors = [
+    { name = "Michael Demidenko", email = "demidenko.michael@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "pyzmq==26.4.0", # avoids build error with 27.0.0
+    "numpy>=1.26.0",
+    "pandas>=2.0.0",
+    "datalad>=0.16.0",
+    "nilearn>=0.9.2",
+    "matplotlib>=3.7.0",
+    "seaborn>=0.12.0",
+    "nbformat>=5.8.0",
+    "IPython>=8.0.0",
+    "jupyter>=1.0.0",
+    "notebook>=7.0.0",
+    "awscli",
+    "scipy",
+    "argparse",
+    "pyrelimri",
+    "templateflow"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "black",
+    "flake8"
+]
+
+[project.scripts]
+bidsstatmod_groupmods = "scripts.bidsstatmod_groupmods:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["scripts"]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=6.29.5",
+]
