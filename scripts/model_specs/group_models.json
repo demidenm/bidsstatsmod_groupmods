@@ -1,0 +1,279 @@
+{
+    "one_sample_ttest": {
+      "Level": "Dataset",
+      "Name": "onesample_t",
+      "GroupBy": [
+        "contrast"
+      ],
+      "Model": {
+        "X": [
+          1
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    },
+    "one_sample_ttest_covage": {
+      "Level": "Dataset",
+      "Name": "onesample_tcov",
+      "GroupBy": [
+        "contrast"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Demean",
+            "Input": [
+              "age"
+            ],
+            "Output": [
+              "age_cent"
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "age_cent"
+        ],
+        "Type": "glm"
+      },
+      "DummyContrasts": {
+        "Test": "t"
+      }
+    },
+    "two_sample_ttest": {
+      "Level": "Dataset",
+      "Name": "twosample_t",
+      "GroupBy": [
+        "contrast"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Factor",
+            "Input": [
+              "group"
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "group.*"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "control_vs_mdd",
+          "ConditionList": [
+            "group.control",
+            "group.mdd"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "mddvcontrol",
+          "ConditionList": [
+            "group.Major Depressive Disorder",
+            "group.Never-Depressed Control"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        }
+      ]
+    },
+    "two_sample_ttest_covage": {
+      "Level": "Dataset",
+      "Name": "twosample_tcov",
+      "GroupBy": [
+        "contrast"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Demean",
+            "Input": [
+              "age"
+            ],
+            "Output": [
+              "age_cent"
+            ]
+          },
+          {
+            "Name": "Factor",
+            "Input": [
+              "group"
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "group.*",
+          "age_cent"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "agecent",
+          "ConditionList": [
+            "age_cent"
+          ],
+          "Weights": [
+            1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "mddvcontrol",
+          "ConditionList": [
+            "group.Major Depressive Disorder",
+            "group.Never-Depressed Control"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        }
+      ]
+    },
+    "two_sample_ttest_covinteract": {
+      "Level": "Dataset",
+      "Name": "twosample_tcovint",
+      "GroupBy": [
+        "contrast"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Factor",
+            "Input": [
+              "group"
+            ]
+          },
+          {
+            "Name": "Product",
+            "Input": [
+              "age",
+              "group.Major Depressive Disorder"
+            ],
+            "Output": "age_mdd"
+          },
+          {
+            "Name": "Product",
+            "Input": [
+              "age",
+              "group.Never-Depressed Control"
+            ],
+            "Output": "age_control"
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "group.*",
+          "age_control",
+          "age_mdd"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "ageintcontrolvmdd",
+          "ConditionList": [
+            "age_control",
+            "age_mdd"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        }
+      ]
+    },
+    "anova_3grp": {
+      "Level": "Dataset",
+      "Name": "anova_3grp",
+      "GroupBy": [
+        "contrast"
+      ],
+      "Transformations": {
+        "Transformer": "pybids-transforms-v1",
+        "Instructions": [
+          {
+            "Name": "Factor",
+            "Input": [
+              "age_group"
+            ]
+          }
+        ]
+      },
+      "Model": {
+        "X": [
+          1,
+          "age_group.*"
+        ],
+        "Type": "glm"
+      },
+      "Contrasts": [
+        {
+          "Name": "oldervyounger",
+          "ConditionList": [
+            "group.Major Depressive Disorder",
+            "group.Never-Depressed Control"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "oldervmiddle",
+          "ConditionList": [
+            "group.Major Depressive Disorder",
+            "group.Never-Depressed Control"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        },
+        {
+          "Name": "middlevyounger",
+          "ConditionList": [
+            "group.Major Depressive Disorder",
+            "group.Never-Depressed Control"
+          ],
+          "Weights": [
+            1,
+            -1
+          ],
+          "Test": "t"
+        }
+      ]
+    }
+  }

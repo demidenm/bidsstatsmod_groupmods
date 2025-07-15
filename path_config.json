@@ -1,0 +1,5 @@
+{
+    "datasets_folder": "/oak/stanford/groups/russpold/data/openneuro_fitlins",
+    "openneuro_glmrepo": "/oak/stanford/groups/russpold/users/demidenm/bidsstatmod_groupmods",
+    "tmp_folder": "/scratch/groups/russpold/demidenm/bidssm_fitlins"
+}
