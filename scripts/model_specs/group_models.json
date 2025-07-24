@@ -239,10 +239,10 @@
       },
       "Contrasts": [
         {
-          "Name": "oldervyounger",
+          "Name": "oldervyounger", 
           "ConditionList": [
-            "group.Major Depressive Disorder",
-            "group.Never-Depressed Control"
+            "age_group.older",
+            "age_group.younger"
           ],
           "Weights": [
             1,
@@ -251,10 +251,10 @@
           "Test": "t"
         },
         {
-          "Name": "oldervmiddle",
+          "Name": "oldervmiddle", 
           "ConditionList": [
-            "group.Major Depressive Disorder",
-            "group.Never-Depressed Control"
+            "age_group.older",
+            "age_group.middle"
           ],
           "Weights": [
             1,
@@ -263,16 +263,29 @@
           "Test": "t"
         },
         {
-          "Name": "middlevyounger",
+          "Name": "middlevyounger", 
           "ConditionList": [
-            "group.Major Depressive Disorder",
-            "group.Never-Depressed Control"
+            "age_group.middle",
+            "age_group.younger"
           ],
           "Weights": [
             1,
             -1
           ],
           "Test": "t"
+        },
+        {
+          "Name": "overall_age_group_effect",
+          "ConditionList": [
+            "age_group.older",
+            "age_group.middle", 
+            "age_group.younger"
+          ],
+          "Weights": [
+            [1, -1, 0],
+            [1, 0, -1]
+          ],
+          "Test": "F"
         }
       ]
     }

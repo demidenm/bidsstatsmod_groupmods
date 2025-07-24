@@ -57,7 +57,7 @@ jq --slurpfile models ${group_specs} --arg model_key "$model_type" '.Nodes += [$
 
 # -------------------- Set Up Input, Scratch, Output Directories --------------------
 bids_data_dir="${data_dir}/input/${openneuro_id}"
-scratch_data_dir="${scratch_out}/fitlins/task-${task_label}"
+scratch_data_dir="${scratch_out}/fitlins/task-${task_label}_${model_type}"
 output_data_dir="${data_dir}/analyses/bidssm_${openneuro_id}/task-${task_label}"
 
 if [ -d "${data_dir}/fmriprep/${openneuro_id}/derivatives_alt" ]; then
