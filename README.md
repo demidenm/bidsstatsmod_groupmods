@@ -10,7 +10,7 @@ This repository demonstrates how to use BIDS Statistical Models (BIDS-SM) to per
 
 These examples are comparable to those listed for [FSL](https://web.mit.edu/fsl_v5.0.10/fsl/doc/wiki/GLM.html). However, BIDS-SM faciliates running these models across multiple software AFNI (3dREMLfit) and Nilearn (SPM GLM) [Coming soon: FSL].
 
-> Note: Model descriptions and illustrations are presented in the Jupyter Notebook [model_illustrations.ipynb](notebooks/model_illustrations.ipynb]. Details about the workflow such as setup and usage are included below.
+> Note: Model descriptions and illustrations are presented in the Jupyter Notebook [model_illustrations.ipynb](notebooks/model_illustrations.ipynb). Details about the workflow such as setup and usage are included below.
 
 ## Overview
 
