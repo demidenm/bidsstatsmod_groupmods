@@ -34,7 +34,7 @@ The dataset includes:
 
 ```
 ├── notebooks/
-│   └── transformations.ipynb    # analysis notebook with information and illustrations re: BIDS-SM
+│   └── model_illustrations.ipynb    # analysis notebook with information and illustrations re: BIDS-SM
 ├── scripts/
 │   ├── sbatch_fitlins/
 │   │   └── submit_fitlins_mods.sh    # SLURM submission script to run fitlins models
@@ -115,7 +115,7 @@ Edit `path_config.json` to match your data directories:
 ### Interactive Analysis
 Open and run the Jupyter notebook for step-by-step analysis:
 ```bash
-jupyter lab notebooks/transformations.ipynb
+jupyter lab notebooks/model_illustrations.ipynb
 ```
 
 The notebook demonstrates:
