@@ -52,8 +52,16 @@ source ".venv/bin/activate"
 
 # -------------------- Create tmp Group Spec Based on Type  --------------------
 mkdir -p ${repo_dir}/scripts/model_specs/tmp/
-jq --slurpfile models ${group_specs} --arg model_key "$model_type" '.Nodes += [$models[0][$model_key]]' ${base_spec} > ${tmp_grp_spec}
-
+if [ "$model_type" == "paireddiff" ]; then
+    # For paireddiff, use the entire model specification as is
+    # complete multi-level specification including a different subject_level node
+    jq --slurpfile models ${group_specs} --arg model_key "$model_type" \
+        '$models[0][$model_key]' ${group_specs} > ${tmp_grp_spec}
+else
+    # For regular model types, append the Dataset-level node to base_spec
+    jq --slurpfile models ${group_specs} --arg model_key "$model_type" \
+        '.Nodes += [$models[0][$model_key]]' ${base_spec} > ${tmp_grp_spec}
+fi
 
 # -------------------- Set Up Input, Scratch, Output Directories --------------------
 bids_data_dir="${data_dir}/input/${openneuro_id}"

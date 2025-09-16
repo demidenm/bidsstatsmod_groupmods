@@ -23,8 +23,13 @@ dependencies = [
     "scipy",
     "argparse",
     "pyrelimri",
-    "templateflow"
+    "templateflow",
+    # Pinned installs from GitHub
+    "fitlins @ git+https://github.com/jmumford/fitlins.git@paddedint",
+    "setuptools",
+    "pybids @ git+https://github.com/bids-standard/pybids.git@92607f70e4f0c42adecf921abcd1a8992eb84089"
 ]
+
 
 [project.optional-dependencies]
 dev = [
@@ -47,3 +52,6 @@ packages = ["scripts"]
 dev = [
     "ipykernel>=6.29.5",
 ]
+
+[tool.hatch.metadata]
+allow-direct-references = true

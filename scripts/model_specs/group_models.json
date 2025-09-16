@@ -288,5 +288,179 @@
           "Test": "F"
         }
       ]
-    }
+    },
+    "paireddiff": {
+      "Name": "ds000171",
+      "BIDSModelVersion": "1.0.0",
+      "Input": {
+        "subject": [
+          "control01",
+          "control02",
+          "control07",
+          "control08",
+          "control09",
+          "control10",
+          "control11",
+          "control13",
+          "control15",
+          "control18",
+          "control20"
+        ],
+        "task": [
+          "music"
+        ],
+        "run": [
+          1,
+          2,
+          3
+        ]
+      },
+      "Nodes": [
+        {
+          "Level": "Run",
+          "Name": "run_level",
+          "GroupBy": [
+            "subject",
+            "run"
+          ],
+          "Transformations": {
+            "Transformer": "pybids-transforms-v1",
+            "Instructions": [
+              {
+                "Name": "Factor",
+                "Input": [
+                  "trial_type"
+                ]
+              },
+              {
+                "Name": "Convolve",
+                "Model": "spm",
+                "Input": [
+                  "trial_type.*"
+                ]
+              }
+            ]
+          },
+          "Model": {
+            "X": [
+              1,
+              "trial_type.*",
+              "trans_*",
+              "rot_*",
+              "cosine*"
+            ],
+            "Type": "glm"
+          },
+          "Contrasts": [
+            {
+              "Name": "musicvsounds",
+              "ConditionList": [
+                "trial_type.positive_music",
+                "trial_type.negative_music",
+                "trial_type.tones"
+              ],
+              "Weights": [
+                0.5,
+                0.5,
+                -1
+              ],
+              "Test": "t"
+            },
+            {
+              "Name": "posmusicvnegmusic",
+              "ConditionList": [
+                "trial_type.positive_music",
+                "trial_type.negative_music"
+              ],
+              "Weights": [
+                1,
+                -1
+              ],
+              "Test": "t"
+            },
+            {
+              "Name": "negmusicvsounds",
+              "ConditionList": [
+                "trial_type.negative_music",
+                "trial_type.tones"
+              ],
+              "Weights": [
+                1,
+                -1
+              ],
+              "Test": "t"
+            },
+            {
+              "Name": "posmusicvsounds",
+              "ConditionList": [
+                "trial_type.positive_music",
+                "trial_type.tones"
+              ],
+              "Weights": [
+                1,
+                -1
+              ],
+              "Test": "t"
+            }
+          ]
+        },
+        {
+          "Level": "Subject",
+          "Name": "subject_level",
+          "GroupBy": [
+            "subject",
+            "contrast"
+          ],
+          "Model": {
+              "X": [
+                  "run"
+              ],
+              "Type": "meta",
+              "Formula": "0 + C(run)"
+          },
+          "Contrasts": [
+              {
+                  "Name": "run1vrun2",
+                  "ConditionList": [
+                  "C(run)[1]",
+                  "C(run)[2]"
+                  ],
+                  "Weights": [
+                  1,
+                  -1
+                  ],
+                  "Test": "t"
+              },
+              {
+                  "Name": "run1vrun3",
+                  "ConditionList": [
+                  "C(run)[1]",
+                  "C(run)[3]"
+                  ],
+                  "Weights": [
+                  1,
+                  -1
+                  ],
+                  "Test": "t"
+              }
+          ]
+        },
+        {
+          "Level": "Dataset",
+          "Name": "paireddiff",
+          "GroupBy": [
+            "contrast"
+          ],
+          "Model": {
+            "X": [
+              1
+            ],
+            "Type": "glm"
+          },
+          "DummyContrasts": {
+            "Test": "t"
+          }
+        }
+      ]
+    } 
   }
