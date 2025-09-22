@@ -61,12 +61,7 @@ fi
 # Proceed with setting up the environment
 #  Step 1. Install based on pyproject.toml
 uv sync
-source .venv/bin/activate
 
-# installing padding fix in fitlins from Jeanette
-uv pip install git+https://github.com/jmumford/fitlins.git@paddedint
-uv pip install setuptools
-uv pip install git+https://github.com/bids-standard/pybids.git
 
 # run to have kernel for jupyternotebook kernel
 uv add --dev ipykernel

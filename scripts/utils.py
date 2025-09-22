@@ -348,3 +348,255 @@ def pull_contrast_conditions_spec(spec_content):
                 condition_vals.add(condition)
                 
     return sorted(list(condition_vals))
+
+
+# FIGURES DIAGRAM SVG CREATED VIA CLAUDE ANDE MANUALLY MODIFIED
+def create_bids_workflow_figure1():
+    """
+    Creates SVG for Figure 1: Basic BIDS Stats Model Workflow
+    runLevel -> subjectLevel (if >1 run) -> datasetLevel (one sample average)
+    Left to right flow, fixed arrows
+    """
+    
+    svg_content = '''
+    <svg width="800" height="500" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <style>
+                .title { font: bold 16px Arial; text-anchor: middle; }
+                .level-title { font: bold 14px Arial; text-anchor: middle; }
+                .box-text { font: 12px Arial; text-anchor: middle; }
+                .small-text { font: 10px Arial; text-anchor: middle; }
+                .run-box { fill: #e1f5fe; stroke: #0277bd; stroke-width: 2; }
+                .subject-box { fill: #f3e5f5; stroke: #7b1fa2; stroke-width: 2; }
+                .dataset-box { fill: #e8f5e8; stroke: #388e3c; stroke-width: 2; }
+                .arrow { stroke: #333; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+                .condition-text { font: 10px Arial; fill: #666; }
+            </style>
+            <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+                    refX="9" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+            </marker>
+        </defs>
+    
+        <!-- Run Level -->
+        <text x="100" y="70" class="level-title">Run Level</text>
+        
+        <!-- Subject 1 Runs -->
+        <text x="100" y="90" class="small-text">Subject 1</text>
+        <rect x="50" y="100" width="80" height="40" class="run-box" rx="5"/>
+        <text x="90" y="115" class="box-text">Run 1</text>
+        <text x="90" y="130" class="box-text">Contrast A</text>
+        
+        <rect x="50" y="150" width="80" height="40" class="run-box" rx="5"/>
+        <text x="90" y="165" class="box-text">Run 2</text>
+        <text x="90" y="180" class="box-text">Contrast A</text>
+        
+        <!-- Subject 2 Runs -->
+        <text x="100" y="210" class="small-text">Subject 2</text>
+        <rect x="50" y="220" width="80" height="40" class="run-box" rx="5"/>
+        <text x="90" y="235" class="box-text">Run 1</text>
+        <text x="90" y="250" class="box-text">Contrast A</text>
+        
+        <rect x="50" y="270" width="80" height="40" class="run-box" rx="5"/>
+        <text x="90" y="285" class="box-text">Run 2</text>
+        <text x="90" y="300" class="box-text">Contrast A</text>
+        
+        <!-- Subject N indicator -->
+        <text x="90" y="330" class="small-text">...</text>
+        
+
+        <!-- Subject Level -->
+        <text x="300" y="70" class="level-title">Subject Level</text>
+        
+        <rect x="250" y="130" width="100" height="50" class="subject-box" rx="5"/>
+        <text x="300" y="150" class="box-text">Subject 1</text>
+        <text x="300" y="165" class="box-text">Contrast A</text>
+        <text x="300" y="175" class="small-text">(avg runs)</text>
+        
+        <rect x="250" y="220" width="100" height="50" class="subject-box" rx="5"/>
+        <text x="300" y="240" class="box-text">Subject 2</text>
+        <text x="300" y="255" class="box-text">Contrast A</text>
+        <text x="300" y="265" class="small-text">(avg runs)</text>
+        
+        <text x="300" y="300" class="small-text">...</text>
+        
+        <!-- Dataset Level -->
+        <text x="550" y="70" class="level-title">Dataset Level</text>
+        
+        <rect x="480" y="170" width="120" height="60" class="dataset-box" rx="5"/>
+        <text x="540" y="190" class="box-text">One Sample</text>
+        <text x="540" y="205" class="box-text">Average</text>
+        <text x="540" y="220" class="box-text">Contrast A</text>
+        
+        <!-- Arrows from runs to subject level (fixed spacing) -->
+        <line x1="130" y1="120" x2="250" y2="150" class="arrow"/>
+        <line x1="130" y1="170" x2="250" y2="160" class="arrow"/>
+        <line x1="130" y1="240" x2="250" y2="240" class="arrow"/>
+        <line x1="130" y1="290" x2="250" y2="250" class="arrow"/>
+        
+        <!-- Arrows from subject to dataset level -->
+        <line x1="350" y1="155" x2="480" y2="190" class="arrow"/>
+        <line x1="350" y1="245" x2="480" y2="210" class="arrow"/>
+        
+        <!-- Alternative path for single run -->
+        <text x="150" y="350" class="condition-text">
+            <tspan x="175" dy="0">If only 1 run per subject,</tspan>
+            <tspan x="175" dy="20">subject level is skipped</tspan>
+        </text>
+        <path d="M 130 320 Q 300 380 480 220" class="arrow" stroke-dasharray="5,5"/>
+        
+    </svg>
+    '''
+    
+    return svg_content
+
+def create_bids_workflow_figure2():
+    """
+    Creates SVG for Figure 2: Extended BIDS Stats Model Workflow
+    Run/Subject level feeds into BOTH dataset levels independently
+    Dataset levels stacked vertically to reduce arrow overlap
+    """
+    
+    svg_content = '''
+    <svg width="800" height="700" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <style>
+                .title { font: bold 16px Arial; text-anchor: middle; }
+                .level-title { font: bold 14px Arial; text-anchor: middle; }
+                .box-text { font: 12px Arial; text-anchor: middle; }
+                .small-text { font: 10px Arial; text-anchor: middle; }
+                .run-box { fill: #e1f5fe; stroke: #0277bd; stroke-width: 2; }
+                .subject-box { fill: #f3e5f5; stroke: #7b1fa2; stroke-width: 2; }
+                .dataset-box1 { fill: #e8f5e8; stroke: #388e3c; stroke-width: 2; }
+                .dataset-box2 { fill: #fff3e0; stroke: #f57c00; stroke-width: 2; }
+                .arrow { stroke: #333; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+                .condition-text { font: 10px Arial; fill: #666; }
+                .group-text { font: 11px Arial; fill: #444; }
+            </style>
+            <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+                    refX="9" refY="3.5" orient="auto">
+                <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+            </marker>
+        </defs>
+
+        <!-- Run Level -->
+        <text x="100" y="70" class="level-title">Run Level</text>
+        
+        <!-- Group A Subjects -->
+        <text x="100" y="90" class="group-text">Group A</text>
+        <text x="100" y="105" class="small-text">Subject 1</text>
+        <rect x="50" y="115" width="60" height="35" class="run-box" rx="3"/>
+        <text x="80" y="130" class="box-text">Run 1</text>
+        <text x="80" y="140" class="small-text">Contrast A</text>
+        
+        <rect x="120" y="115" width="60" height="35" class="run-box" rx="3"/>
+        <text x="150" y="130" class="box-text">Run 2</text>
+        <text x="150" y="140" class="small-text">Contrast A</text>
+        
+        <text x="100" y="170" class="small-text">Subject 2</text>
+        <rect x="50" y="180" width="60" height="35" class="run-box" rx="3"/>
+        <text x="80" y="195" class="box-text">Run 1</text>
+        <text x="80" y="205" class="small-text">Contrast A</text>
+        
+        <rect x="120" y="180" width="60" height="35" class="run-box" rx="3"/>
+        <text x="150" y="195" class="box-text">Run 2</text>
+        <text x="150" y="205" class="small-text">Contrast A</text>
+        
+        <!-- Group B Subjects -->
+        <text x="100" y="240" class="group-text">Group B</text>
+        <text x="100" y="255" class="small-text">Subject 3</text>
+        <rect x="50" y="265" width="60" height="35" class="run-box" rx="3"/>
+        <text x="80" y="280" class="box-text">Run 1</text>
+        <text x="80" y="290" class="small-text">Contrast A</text>
+        
+        <rect x="120" y="265" width="60" height="35" class="run-box" rx="3"/>
+        <text x="150" y="280" class="box-text">Run 2</text>
+        <text x="150" y="290" class="small-text">Contrast A</text>
+        
+        <text x="100" y="320" class="small-text">Subject 4</text>
+        <rect x="50" y="330" width="60" height="35" class="run-box" rx="3"/>
+        <text x="80" y="345" class="box-text">Run 1</text>
+        <text x="80" y="355" class="small-text">Contrast A</text>
+        
+        <rect x="120" y="330" width="60" height="35" class="run-box" rx="3"/>
+        <text x="150" y="345" class="box-text">Run 2</text>
+        <text x="150" y="355" class="small-text">Contrast A</text>
+        
+        <!-- Subject Level -->
+        <text x="300" y="70" class="level-title">Subject Level</text>
+        
+        <!-- Group A Subject Level -->
+        <text x="300" y="90" class="group-text">Group A</text>
+        <rect x="250" y="115" width="80" height="40" class="subject-box" rx="5"/>
+        <text x="290" y="130" class="box-text">Subject 1</text>
+        <text x="290" y="145" class="box-text">Contrast A</text>
+        
+        <rect x="250" y="180" width="80" height="40" class="subject-box" rx="5"/>
+        <text x="290" y="195" class="box-text">Subject 2</text>
+        <text x="290" y="210" class="box-text">Contrast A</text>
+        
+        <!-- Group B Subject Level -->
+        <text x="300" y="240" class="group-text">Group B</text>
+        <rect x="250" y="265" width="80" height="40" class="subject-box" rx="5"/>
+        <text x="290" y="280" class="box-text">Subject 3</text>
+        <text x="290" y="295" class="box-text">Contrast A</text>
+        
+        <rect x="250" y="330" width="80" height="40" class="subject-box" rx="5"/>
+        <text x="290" y="345" class="box-text">Subject 4</text>
+        <text x="290" y="360" class="box-text">Contrast A</text>
+        
+        <!-- Arrows from runs to subjects -->
+        <line x1="180" y1="132" x2="250" y2="135" class="arrow"/>
+        <line x1="180" y1="197" x2="250" y2="200" class="arrow"/>
+        <line x1="180" y1="282" x2="250" y2="285" class="arrow"/>
+        <line x1="180" y1="347" x2="250" y2="350" class="arrow"/>
+        
+        <!-- Dataset Level (Stacked vertically) -->
+        <text x="550" y="70" class="level-title">Dataset Level</text>
+        
+        <!-- Dataset Level 1: One Sample Average (Top) -->
+        <text x="550" y="90" class="small-text">One Sample Average</text>
+        
+        <rect x="500" y="115" width="100" height="50" class="dataset-box1" rx="5"/>
+        <text x="550" y="135" class="box-text">Group A</text>
+        <text x="550" y="150" class="box-text">One Sample</text>
+        <text x="550" y="160" class="small-text">Contrast A</text>
+        
+        <rect x="500" y="180" width="100" height="50" class="dataset-box1" rx="5"/>
+        <text x="550" y="200" class="box-text">Group B</text>
+        <text x="550" y="215" class="box-text">One Sample</text>
+        <text x="550" y="225" class="small-text">Contrast A</text>
+        
+        <!-- Dataset Level 2: Between Group (Bottom) -->
+        <text x="560" y="270" class="small-text">Between Group Differences</text>
+        
+        <rect x="500" y="290" width="120" height="60" class="dataset-box2" rx="5"/>
+        <text x="560" y="310" class="box-text">Group A vs B</text>
+        <text x="560" y="325" class="box-text">Between Group</text>
+        <text x="560" y="340" class="box-text">Contrast A</text>
+        
+        <!-- Clean arrows from subject to both dataset levels -->
+        <!-- To Dataset Level 1 (One Sample) -->
+        <line x1="330" y1="135" x2="500" y2="140" class="arrow"/>
+        <line x1="330" y1="200" x2="500" y2="140" class="arrow"/>
+        <line x1="330" y1="285" x2="500" y2="205" class="arrow"/>
+        <line x1="330" y1="350" x2="500" y2="205" class="arrow"/>
+        
+        <!-- To Dataset Level 2 (Between Group) -->
+        <line x1="330" y1="135" x2="500" y2="310" class="arrow"/>
+        <line x1="330" y1="200" x2="500" y2="315" class="arrow"/>
+        <line x1="330" y1="285" x2="500" y2="325" class="arrow"/>
+        <line x1="330" y1="350" x2="500" y2="330" class="arrow"/>
+        
+        <!-- Alternative path notation -->
+        <text x="275" y="450" class="condition-text">
+            <tspan x="275" dy="0">If only 1 run per subject,</tspan>
+            <tspan x="275" dy="20">subject level is skipped</tspan>
+        </text>
+        <path d="M 180 390 Q 340 430 500 230" class="arrow" stroke-dasharray="5,5"/>
+        <path d="M 180 390 Q 330 480 480 340" class="arrow" stroke-dasharray="5,5"/>
+        
+    </svg>
+    '''
+    
+    return svg_content
