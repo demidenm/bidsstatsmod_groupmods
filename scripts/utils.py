@@ -154,7 +154,6 @@ def extract_model_info(model_spec):
 
 
 # FIGURES DIAGRAM SVG CREATED VIA CLAUDE ANDE MANUALLY MODIFIED
-# FIGURES DIAGRAM SVG CREATED VIA CLAUDE ANDE MANUALLY MODIFIED
 def create_bids_workflow_figure1():
     """
     Creates SVG for Figure 1: Basic BIDS Stats Model Workflow
