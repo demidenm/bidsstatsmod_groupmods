@@ -11,7 +11,6 @@ dependencies = [
     "pyzmq==26.4.0", # avoids build error with 27.0.0
     "numpy>=1.26.0",
     "pandas>=2.0.0",
-    "datalad>=0.16.0",
     "nilearn>=0.9.2",
     "matplotlib>=3.7.0",
     "seaborn>=0.12.0",
@@ -19,15 +18,11 @@ dependencies = [
     "IPython>=8.0.0",
     "jupyter>=1.0.0",
     "notebook>=7.0.0",
-    "awscli",
-    "scipy",
-    "argparse",
-    "pyrelimri",
-    "templateflow",
     # Pinned installs from GitHub
     "fitlins @ git+https://github.com/jmumford/fitlins.git@paddedint",
     "setuptools",
-    "pybids @ git+https://github.com/bids-standard/pybids.git@92607f70e4f0c42adecf921abcd1a8992eb84089"
+    "pybids @ git+https://github.com/bids-standard/pybids.git@26b3f7e"
+
 ]
 
 
@@ -55,3 +50,14 @@ dev = [
 
 [tool.hatch.metadata]
 allow-direct-references = true
+
+# Add sources section
+[tool.uv.sources]
+pybids = { git = "https://github.com/jmumford/pybids.git", rev = "fix_fir_delay_mapping" }
+fitlins = { git = "https://github.com/jmumford/fitlins.git", rev = "paddedint" }
+
+# Override version conflicts
+[tool.uv]
+override-dependencies = [
+    "pybids @ git+https://github.com/jmumford/pybids.git@fix_fir_delay_mapping"
+]
