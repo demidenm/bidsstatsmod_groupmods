@@ -21,8 +21,7 @@ dependencies = [
     # Pinned installs from GitHub
     "fitlins @ git+https://github.com/jmumford/fitlins.git@paddedint",
     "setuptools",
-    "pybids @ git+https://github.com/bids-standard/pybids.git@26b3f7e"
-
+    "pybids @ git+https://github.com/jmumford/pybids.git@f244774",
 ]
 
 
@@ -53,8 +52,8 @@ allow-direct-references = true
 
 # Add sources section
 [tool.uv.sources]
-pybids = { git = "https://github.com/jmumford/pybids.git", rev = "fix_fir_delay_mapping" }
 fitlins = { git = "https://github.com/jmumford/fitlins.git", rev = "paddedint" }
+pybids = { git = "https://github.com/jmumford/pybids.git", rev = "f244774" }
 
 # Override version conflicts
 [tool.uv]

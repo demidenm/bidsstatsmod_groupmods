@@ -19,15 +19,15 @@ OMP_NUM_THREADS=1
 OPENBLAS_NUM_THREADS=1
 # -------------------- Parameter Checking --------------------
 if [ -z "$1" ] || [ -z "$2" ]; then
-  echo "Usage: sbatch $0 <OpenNeuro ID> <grp model type>"
-  echo "Example: sbatch $0 ds000171 one_sample_ttest (Default task: music)"
-  echo "options: one_sample_ttest , one_sample_ttest_covage , two_sample_ttest , two_sample_ttest_covage , two_sample_ttest_covinteract , anova_3grp"
+  echo "Usage: sbatch $0 <OpenNeuro ID> <task> <grp model type>"
+  echo "Example: sbatch $0 ds000171 music one_sample_ttest"
+  echo "options: one_sample_ttest , one_sample_ttest_covage , two_sample_ttest , two_sample_ttest_covage , two_sample_ttest_covinteract , anova, fir"
   exit 1
 fi
 
 openneuro_id=$1
-model_type=$2
-task_label="music"
+task_label=$2
+model_type=$3
 
 # -------------------- Load Configuration --------------------
 config_file="../../path_config.json"
@@ -52,11 +52,11 @@ source ".venv/bin/activate"
 
 # -------------------- Create tmp Group Spec Based on Type  --------------------
 mkdir -p ${repo_dir}/scripts/model_specs/tmp/
-if [ "$model_type" == "paireddiff" ]; then
-    # For paireddiff, use the entire model specification as is
-    # complete multi-level specification including a different subject_level node
-    jq --slurpfile models ${group_specs} --arg model_key "$model_type" \
-        '$models[0][$model_key]' ${group_specs} > ${tmp_grp_spec}
+if [[ "$model_type" == "paireddiff" || "$model_type" == "fir" ]]; then
+    # For paireddiff and FIR, use the entire model specification as is
+    # complete multi-level specification including a different subject_level and/or run-level with different dataset node
+    jq --arg model_key "$model_type" '.[$model_key]' ${group_specs} > ${tmp_grp_spec}
+
 else
     # For regular model types, append the Dataset-level node to base_spec
     jq --slurpfile models ${group_specs} --arg model_key "$model_type" \

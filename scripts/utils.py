@@ -201,14 +201,14 @@ def create_bids_workflow_figure1():
         <text x="300" y="70" style="font: bold 14px Arial; text-anchor: middle;">Subject Level</text>
         
         <rect x="250" y="130" width="100" height="50" style="fill: #f3e5f5; stroke: #7b1fa2; stroke-width: 2;" rx="5"/>
-        <text x="300" y="150" style="font: 12px Arial; text-anchor: middle;">Subject 1</text>
-        <text x="300" y="165" style="font: 12px Arial; text-anchor: middle;">Contrast A</text>
-        <text x="300" y="175" style="font: 10px Arial; text-anchor: middle;">(avg runs)</text>
+        <text x="300" y="148" style="font: 12px Arial; text-anchor: middle;">Subject 1</text>
+        <text x="300" y="162" style="font: 12px Arial; text-anchor: middle;">Contrast A</text>
+        <text x="300" y="172" style="font: 10px Arial; text-anchor: middle;">(avg runs)</text>
         
         <rect x="250" y="220" width="100" height="50" style="fill: #f3e5f5; stroke: #7b1fa2; stroke-width: 2;" rx="5"/>
-        <text x="300" y="240" style="font: 12px Arial; text-anchor: middle;">Subject 2</text>
-        <text x="300" y="255" style="font: 12px Arial; text-anchor: middle;">Contrast A</text>
-        <text x="300" y="265" style="font: 10px Arial; text-anchor: middle;">(avg runs)</text>
+        <text x="300" y="238" style="font: 12px Arial; text-anchor: middle;">Subject 2</text>
+        <text x="300" y="252" style="font: 12px Arial; text-anchor: middle;">Contrast A</text>
+        <text x="300" y="262" style="font: 10px Arial; text-anchor: middle;">(avg runs)</text>
         
         <text x="300" y="300" style="font: 10px Arial; text-anchor: middle;">...</text>
         
@@ -233,7 +233,7 @@ def create_bids_workflow_figure1():
         <!-- Alternative path for single run -->
         <text x="150" y="350" style="font: 10px Arial; fill: #666;">
             <tspan x="175" dy="0">If only 1 run per subject,</tspan>
-            <tspan x="175" dy="20">subject level is skipped</tspan>
+            <tspan x="175" dy="10">subject level is skipped</tspan>
         </text>
         <path d="M 130 320 Q 300 380 480 220" style="stroke: #333; stroke-width: 2; fill: none; marker-end: url(#arrowhead); stroke-dasharray: 5,5;"/>
         
@@ -302,10 +302,10 @@ def create_bids_workflow_figure2():
         <text x="150" y="355" style="font: 10px Arial; text-anchor: middle;">Contrast A</text>
         
         <!-- Subject Level -->
-        <text x="300" y="70" style="font: bold 14px Arial; text-anchor: middle;">Subject Level</text>
+        <text x="290" y="70" style="font: bold 14px Arial; text-anchor: middle;">Subject Level</text>
         
         <!-- Group A Subject Level -->
-        <text x="300" y="90" style="font: 11px Arial; fill: #444;">Group A</text>
+        <text x="270" y="90" style="font: 11px Arial; fill: #444;">Group A</text>
         <rect x="250" y="115" width="80" height="40" style="fill: #f3e5f5; stroke: #7b1fa2; stroke-width: 2;" rx="5"/>
         <text x="290" y="130" style="font: 12px Arial; text-anchor: middle;">Subject 1</text>
         <text x="290" y="145" style="font: 12px Arial; text-anchor: middle;">Contrast A</text>
@@ -315,7 +315,7 @@ def create_bids_workflow_figure2():
         <text x="290" y="210" style="font: 12px Arial; text-anchor: middle;">Contrast A</text>
         
         <!-- Group B Subject Level -->
-        <text x="300" y="240" style="font: 11px Arial; fill: #444;">Group B</text>
+        <text x="270" y="240" style="font: 11px Arial; fill: #444;">Group B</text>
         <rect x="250" y="265" width="80" height="40" style="fill: #f3e5f5; stroke: #7b1fa2; stroke-width: 2;" rx="5"/>
         <text x="290" y="280" style="font: 12px Arial; text-anchor: middle;">Subject 3</text>
         <text x="290" y="295" style="font: 12px Arial; text-anchor: middle;">Contrast A</text>
@@ -337,14 +337,14 @@ def create_bids_workflow_figure2():
         <text x="550" y="90" style="font: 10px Arial; text-anchor: middle;">One Sample Average</text>
         
         <rect x="500" y="115" width="100" height="50" style="fill: #e8f5e8; stroke: #388e3c; stroke-width: 2;" rx="5"/>
-        <text x="550" y="135" style="font: 12px Arial; text-anchor: middle;">Group A</text>
-        <text x="550" y="150" style="font: 12px Arial; text-anchor: middle;">One Sample</text>
-        <text x="550" y="160" style="font: 10px Arial; text-anchor: middle;">Contrast A</text>
+        <text x="550" y="130" style="font: 12px Arial; text-anchor: middle;">Group A</text>
+        <text x="550" y="145" style="font: 12px Arial; text-anchor: middle;">One Sample</text>
+        <text x="550" y="155" style="font: 10px Arial; text-anchor: middle;">Contrast A</text>
         
         <rect x="500" y="180" width="100" height="50" style="fill: #e8f5e8; stroke: #388e3c; stroke-width: 2;" rx="5"/>
-        <text x="550" y="200" style="font: 12px Arial; text-anchor: middle;">Group B</text>
-        <text x="550" y="215" style="font: 12px Arial; text-anchor: middle;">One Sample</text>
-        <text x="550" y="225" style="font: 10px Arial; text-anchor: middle;">Contrast A</text>
+        <text x="550" y="198" style="font: 12px Arial; text-anchor: middle;">Group B</text>
+        <text x="550" y="210" style="font: 12px Arial; text-anchor: middle;">One Sample</text>
+        <text x="550" y="220" style="font: 10px Arial; text-anchor: middle;">Contrast A</text>
         
         <!-- Dataset Level 2: Between Group (Bottom) -->
         <text x="560" y="270" style="font: 10px Arial; text-anchor: middle;">Between Group Differences</text>
@@ -370,7 +370,7 @@ def create_bids_workflow_figure2():
         <!-- Alternative path notation -->
         <text x="275" y="450" style="font: 10px Arial; fill: #666;">
             <tspan x="275" dy="0">If only 1 run per subject,</tspan>
-            <tspan x="275" dy="20">subject level is skipped</tspan>
+            <tspan x="275" dy="10">subject level is skipped</tspan>
         </text>
         <path d="M 180 390 Q 340 430 500 230" style="stroke: #333; stroke-width: 2; fill: none; marker-end: url(#arrowhead); stroke-dasharray: 5,5;"/>
         <path d="M 180 390 Q 330 480 480 340" style="stroke: #333; stroke-width: 2; fill: none; marker-end: url(#arrowhead); stroke-dasharray: 5,5;"/>

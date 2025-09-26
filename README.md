@@ -132,13 +132,13 @@ For large-scale analyses, use the SLURM submission script:
 
 ```bash
 # Submit one-sample t-test
-sbatch scripts/sbatch_fitlins/submit_fitlins_mods.sh ds000171 one_sample_ttest
+sbatch scripts/sbatch_fitlins/submit_fitlins_mods.sh ds000171 music one_sample_ttest
 
 # Submit two-sample t-test with covariate
-sbatch scripts/sbatch_fitlins/submit_fitlins_mods.sh ds000171 two_sample_ttest_covage
+sbatch scripts/sbatch_fitlins/submit_fitlins_mods.sh ds000171 music two_sample_ttest_covage
 
 # Submit three-group ANOVA  
-sbatch scripts/sbatch_fitlins/submit_fitlins_mods.sh ds000171 anova_3grp
+sbatch scripts/sbatch_fitlins/submit_fitlins_mods.sh ds000171 music anova
 ```
 
 Available model types:
@@ -147,7 +147,9 @@ Available model types:
 - `two_sample_ttest`
 - `two_sample_ttest_covage`
 - `two_sample_ttest_covinteract`
-- `anova_3grp`
+- `anova`
+- `fir`
+
 
 ## Model Output
 
@@ -167,13 +169,13 @@ analyses/bidssm_ds000171/task-music/
 │   ├── contrast-musicvsounds_stat-z_statmap.nii.gz
 │   └── contrast-musicvsounds_stat-effect_statmap.nii.gz
 ├── node-twosampleT/
-└── node-anova3grp/
+└── node-anova/
+└── node-fironesampleT/
 ```
 
 ## Citation
 
-Coming soon
-
+TBD
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.

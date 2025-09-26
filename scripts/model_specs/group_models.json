@@ -1,466 +1,642 @@
 {
-    "one_sample_ttest": {
-      "Level": "Dataset",
-      "Name": "onesample_t",
-      "GroupBy": [
-        "contrast"
+  "one_sample_ttest": {
+    "Level": "Dataset",
+    "Name": "onesample_t",
+    "GroupBy": [
+      "contrast"
+    ],
+    "Model": {
+      "X": [
+        1
       ],
-      "Model": {
-        "X": [
+      "Type": "glm"
+    },
+    "DummyContrasts": {
+      "Test": "t"
+    }
+  },
+  "one_sample_ttest_covage": {
+    "Level": "Dataset",
+    "Name": "onesample_tcov",
+    "GroupBy": [
+      "contrast"
+    ],
+    "Transformations": {
+      "Transformer": "pybids-transforms-v1",
+      "Instructions": [
+        {
+          "Name": "Demean",
+          "Input": [
+            "age"
+          ],
+          "Output": [
+            "age_cent"
+          ]
+        }
+      ]
+    },
+    "Model": {
+      "X": [
+        1,
+        "age_cent"
+      ],
+      "Type": "glm"
+    },
+    "DummyContrasts": {
+      "Test": "t"
+    }
+  },
+  "two_sample_ttest": {
+    "Level": "Dataset",
+    "Name": "twosample_t",
+    "GroupBy": [
+      "contrast"
+    ],
+    "Transformations": {
+      "Transformer": "pybids-transforms-v1",
+      "Instructions": [
+        {
+          "Name": "Factor",
+          "Input": [
+            "group"
+          ]
+        }
+      ]
+    },
+    "Model": {
+      "X": [
+        1,
+        "group.*"
+      ],
+      "Type": "glm"
+    },
+    "Contrasts": [
+      {
+        "Name": "control_vs_mdd",
+        "ConditionList": [
+          "group.control",
+          "group.mdd"
+        ],
+        "Weights": [
+          1,
+          -1
+        ],
+        "Test": "t"
+      },
+      {
+        "Name": "mddvcontrol",
+        "ConditionList": [
+          "group.Major Depressive Disorder",
+          "group.Never-Depressed Control"
+        ],
+        "Weights": [
+          1,
+          -1
+        ],
+        "Test": "t"
+      }
+    ]
+  },
+  "two_sample_ttest_covage": {
+    "Level": "Dataset",
+    "Name": "twosample_tcov",
+    "GroupBy": [
+      "contrast"
+    ],
+    "Transformations": {
+      "Transformer": "pybids-transforms-v1",
+      "Instructions": [
+        {
+          "Name": "Demean",
+          "Input": [
+            "age"
+          ],
+          "Output": [
+            "age_cent"
+          ]
+        },
+        {
+          "Name": "Factor",
+          "Input": [
+            "group"
+          ]
+        }
+      ]
+    },
+    "Model": {
+      "X": [
+        1,
+        "group.*",
+        "age_cent"
+      ],
+      "Type": "glm"
+    },
+    "Contrasts": [
+      {
+        "Name": "agecent",
+        "ConditionList": [
+          "age_cent"
+        ],
+        "Weights": [
           1
         ],
-        "Type": "glm"
+        "Test": "t"
       },
-      "DummyContrasts": {
+      {
+        "Name": "mddvcontrol",
+        "ConditionList": [
+          "group.Major Depressive Disorder",
+          "group.Never-Depressed Control"
+        ],
+        "Weights": [
+          1,
+          -1
+        ],
         "Test": "t"
       }
-    },
-    "one_sample_ttest_covage": {
-      "Level": "Dataset",
-      "Name": "onesample_tcov",
-      "GroupBy": [
-        "contrast"
-      ],
-      "Transformations": {
-        "Transformer": "pybids-transforms-v1",
-        "Instructions": [
-          {
-            "Name": "Demean",
-            "Input": [
-              "age"
-            ],
-            "Output": [
-              "age_cent"
-            ]
-          }
-        ]
-      },
-      "Model": {
-        "X": [
-          1,
-          "age_cent"
-        ],
-        "Type": "glm"
-      },
-      "DummyContrasts": {
-        "Test": "t"
-      }
-    },
-    "two_sample_ttest": {
-      "Level": "Dataset",
-      "Name": "twosample_t",
-      "GroupBy": [
-        "contrast"
-      ],
-      "Transformations": {
-        "Transformer": "pybids-transforms-v1",
-        "Instructions": [
-          {
-            "Name": "Factor",
-            "Input": [
-              "group"
-            ]
-          }
-        ]
-      },
-      "Model": {
-        "X": [
-          1,
-          "group.*"
-        ],
-        "Type": "glm"
-      },
-      "Contrasts": [
+    ]
+  },
+  "two_sample_ttest_covinteract": {
+    "Level": "Dataset",
+    "Name": "twosample_tcovint",
+    "GroupBy": [
+      "contrast"
+    ],
+    "Transformations": {
+      "Transformer": "pybids-transforms-v1",
+      "Instructions": [
         {
-          "Name": "control_vs_mdd",
-          "ConditionList": [
-            "group.control",
-            "group.mdd"
-          ],
-          "Weights": [
-            1,
-            -1
-          ],
-          "Test": "t"
+          "Name": "Factor",
+          "Input": [
+            "group"
+          ]
         },
         {
-          "Name": "mddvcontrol",
-          "ConditionList": [
-            "group.Major Depressive Disorder",
+          "Name": "Product",
+          "Input": [
+            "age",
+            "group.Major Depressive Disorder"
+          ],
+          "Output": "age_mdd"
+        },
+        {
+          "Name": "Product",
+          "Input": [
+            "age",
             "group.Never-Depressed Control"
           ],
-          "Weights": [
-            1,
-            -1
-          ],
-          "Test": "t"
+          "Output": "age_control"
         }
       ]
     },
-    "two_sample_ttest_covage": {
-      "Level": "Dataset",
-      "Name": "twosample_tcov",
-      "GroupBy": [
-        "contrast"
+    "Model": {
+      "X": [
+        1,
+        "group.*",
+        "age_control",
+        "age_mdd"
       ],
-      "Transformations": {
-        "Transformer": "pybids-transforms-v1",
-        "Instructions": [
-          {
-            "Name": "Demean",
-            "Input": [
-              "age"
-            ],
-            "Output": [
-              "age_cent"
-            ]
-          },
-          {
-            "Name": "Factor",
-            "Input": [
-              "group"
-            ]
-          }
-        ]
-      },
-      "Model": {
-        "X": [
-          1,
-          "group.*",
-          "age_cent"
-        ],
-        "Type": "glm"
-      },
-      "Contrasts": [
-        {
-          "Name": "agecent",
-          "ConditionList": [
-            "age_cent"
-          ],
-          "Weights": [
-            1
-          ],
-          "Test": "t"
-        },
-        {
-          "Name": "mddvcontrol",
-          "ConditionList": [
-            "group.Major Depressive Disorder",
-            "group.Never-Depressed Control"
-          ],
-          "Weights": [
-            1,
-            -1
-          ],
-          "Test": "t"
-        }
-      ]
+      "Type": "glm"
     },
-    "two_sample_ttest_covinteract": {
-      "Level": "Dataset",
-      "Name": "twosample_tcovint",
-      "GroupBy": [
-        "contrast"
-      ],
-      "Transformations": {
-        "Transformer": "pybids-transforms-v1",
-        "Instructions": [
-          {
-            "Name": "Factor",
-            "Input": [
-              "group"
-            ]
-          },
-          {
-            "Name": "Product",
-            "Input": [
-              "age",
-              "group.Major Depressive Disorder"
-            ],
-            "Output": "age_mdd"
-          },
-          {
-            "Name": "Product",
-            "Input": [
-              "age",
-              "group.Never-Depressed Control"
-            ],
-            "Output": "age_control"
-          }
-        ]
-      },
-      "Model": {
-        "X": [
-          1,
-          "group.*",
+    "Contrasts": [
+      {
+        "Name": "ageintcontrolvmdd",
+        "ConditionList": [
           "age_control",
           "age_mdd"
         ],
-        "Type": "glm"
-      },
-      "Contrasts": [
+        "Weights": [
+          1,
+          -1
+        ],
+        "Test": "t"
+      }
+    ]
+  },
+  "anova": {
+    "Level": "Dataset",
+    "Name": "anova",
+    "GroupBy": [
+      "contrast"
+    ],
+    "Transformations": {
+      "Transformer": "pybids-transforms-v1",
+      "Instructions": [
         {
-          "Name": "ageintcontrolvmdd",
-          "ConditionList": [
-            "age_control",
-            "age_mdd"
-          ],
-          "Weights": [
-            1,
-            -1
-          ],
-          "Test": "t"
+          "Name": "Factor",
+          "Input": [
+            "age_group"
+          ]
         }
       ]
     },
-    "anova_3grp": {
-      "Level": "Dataset",
-      "Name": "anova_3grp",
-      "GroupBy": [
-        "contrast"
+    "Model": {
+      "X": [
+        1,
+        "age_group.*"
       ],
-      "Transformations": {
-        "Transformer": "pybids-transforms-v1",
-        "Instructions": [
-          {
-            "Name": "Factor",
-            "Input": [
-              "age_group"
-            ]
-          }
-        ]
-      },
-      "Model": {
-        "X": [
-          1,
-          "age_group.*"
+      "Type": "glm"
+    },
+    "Contrasts": [
+      {
+        "Name": "oldervyounger", 
+        "ConditionList": [
+          "age_group.older",
+          "age_group.younger"
         ],
-        "Type": "glm"
+        "Weights": [
+          1,
+          -1
+        ],
+        "Test": "t"
       },
-      "Contrasts": [
-        {
-          "Name": "oldervyounger", 
-          "ConditionList": [
-            "age_group.older",
-            "age_group.younger"
-          ],
-          "Weights": [
-            1,
-            -1
-          ],
-          "Test": "t"
-        },
-        {
-          "Name": "oldervmiddle", 
-          "ConditionList": [
-            "age_group.older",
-            "age_group.middle"
-          ],
-          "Weights": [
-            1,
-            -1
-          ],
-          "Test": "t"
-        },
-        {
-          "Name": "middlevyounger", 
-          "ConditionList": [
-            "age_group.middle",
-            "age_group.younger"
-          ],
-          "Weights": [
-            1,
-            -1
-          ],
-          "Test": "t"
-        },
-        {
-          "Name": "overall_age_group_effect",
-          "ConditionList": [
-            "age_group.older",
-            "age_group.middle", 
-            "age_group.younger"
-          ],
-          "Weights": [
-            [1, -1, 0],
-            [1, 0, -1]
-          ],
-          "Test": "F"
-        }
+      {
+        "Name": "oldervmiddle", 
+        "ConditionList": [
+          "age_group.older",
+          "age_group.middle"
+        ],
+        "Weights": [
+          1,
+          -1
+        ],
+        "Test": "t"
+      },
+      {
+        "Name": "middlevyounger", 
+        "ConditionList": [
+          "age_group.middle",
+          "age_group.younger"
+        ],
+        "Weights": [
+          1,
+          -1
+        ],
+        "Test": "t"
+      },
+      {
+        "Name": "overall_age_group_effect",
+        "ConditionList": [
+          "age_group.older",
+          "age_group.middle", 
+          "age_group.younger"
+        ],
+        "Weights": [
+          [1, -1, 0],
+          [1, 0, -1]
+        ],
+        "Test": "F"
+      }
+    ]
+  },
+  "paireddiff": {
+    "Name": "ds000171",
+    "BIDSModelVersion": "1.0.0",
+    "Input": {
+      "subject": [
+        "control01",
+        "control02",
+        "control07",
+        "control08",
+        "control09",
+        "control10",
+        "control11",
+        "control13",
+        "control15",
+        "control18",
+        "control20"
+      ],
+      "task": [
+        "music"
+      ],
+      "run": [
+        1,
+        2,
+        3
       ]
     },
-    "paireddiff": {
-      "Name": "ds000171",
-      "BIDSModelVersion": "1.0.0",
-      "Input": {
-        "subject": [
-          "control01",
-          "control02",
-          "control07",
-          "control08",
-          "control09",
-          "control10",
-          "control11",
-          "control13",
-          "control15",
-          "control18",
-          "control20"
+    "Nodes": [
+      {
+        "Level": "Run",
+        "Name": "run_level",
+        "GroupBy": [
+          "subject",
+          "run"
         ],
-        "task": [
-          "music"
-        ],
-        "run": [
-          1,
-          2,
-          3
-        ]
-      },
-      "Nodes": [
-        {
-          "Level": "Run",
-          "Name": "run_level",
-          "GroupBy": [
-            "subject",
-            "run"
-          ],
-          "Transformations": {
-            "Transformer": "pybids-transforms-v1",
-            "Instructions": [
-              {
-                "Name": "Factor",
-                "Input": [
-                  "trial_type"
-                ]
-              },
-              {
-                "Name": "Convolve",
-                "Model": "spm",
-                "Input": [
-                  "trial_type.*"
-                ]
-              }
-            ]
-          },
-          "Model": {
-            "X": [
-              1,
-              "trial_type.*",
-              "trans_*",
-              "rot_*",
-              "cosine*"
-            ],
-            "Type": "glm"
-          },
-          "Contrasts": [
+        "Transformations": {
+          "Transformer": "pybids-transforms-v1",
+          "Instructions": [
             {
-              "Name": "musicvsounds",
-              "ConditionList": [
-                "trial_type.positive_music",
-                "trial_type.negative_music",
-                "trial_type.tones"
-              ],
-              "Weights": [
-                0.5,
-                0.5,
-                -1
-              ],
-              "Test": "t"
+              "Name": "Factor",
+              "Input": [
+                "trial_type"
+              ]
             },
             {
-              "Name": "posmusicvnegmusic",
-              "ConditionList": [
-                "trial_type.positive_music",
-                "trial_type.negative_music"
-              ],
-              "Weights": [
-                1,
-                -1
-              ],
-              "Test": "t"
-            },
-            {
-              "Name": "negmusicvsounds",
-              "ConditionList": [
-                "trial_type.negative_music",
-                "trial_type.tones"
-              ],
-              "Weights": [
-                1,
-                -1
-              ],
-              "Test": "t"
-            },
-            {
-              "Name": "posmusicvsounds",
-              "ConditionList": [
-                "trial_type.positive_music",
-                "trial_type.tones"
-              ],
-              "Weights": [
-                1,
-                -1
-              ],
-              "Test": "t"
+              "Name": "Convolve",
+              "Model": "spm",
+              "Input": [
+                "trial_type.*"
+              ]
             }
           ]
         },
-        {
-          "Level": "Subject",
-          "Name": "subject_level",
-          "GroupBy": [
-            "subject",
-            "contrast"
+        "Model": {
+          "X": [
+            1,
+            "trial_type.*",
+            "trans_*",
+            "rot_*",
+            "cosine*"
           ],
-          "Model": {
-              "X": [
-                  "run"
-              ],
-              "Type": "meta",
-              "Formula": "0 + C(run)"
-          },
-          "Contrasts": [
-              {
-                  "Name": "run1vrun2",
-                  "ConditionList": [
-                  "C(run)[1]",
-                  "C(run)[2]"
-                  ],
-                  "Weights": [
-                  1,
-                  -1
-                  ],
-                  "Test": "t"
-              },
-              {
-                  "Name": "run1vrun3",
-                  "ConditionList": [
-                  "C(run)[1]",
-                  "C(run)[3]"
-                  ],
-                  "Weights": [
-                  1,
-                  -1
-                  ],
-                  "Test": "t"
-              }
-          ]
+          "Type": "glm"
         },
-        {
-          "Level": "Dataset",
-          "Name": "paireddiff",
-          "GroupBy": [
-            "contrast"
-          ],
-          "Model": {
-            "X": [
-              1
+        "Contrasts": [
+          {
+            "Name": "musicvsounds",
+            "ConditionList": [
+              "trial_type.positive_music",
+              "trial_type.negative_music",
+              "trial_type.tones"
             ],
-            "Type": "glm"
+            "Weights": [
+              0.5,
+              0.5,
+              -1
+            ],
+            "Test": "t"
           },
-          "DummyContrasts": {
+          {
+            "Name": "posmusicvnegmusic",
+            "ConditionList": [
+              "trial_type.positive_music",
+              "trial_type.negative_music"
+            ],
+            "Weights": [
+              1,
+              -1
+            ],
+            "Test": "t"
+          },
+          {
+            "Name": "negmusicvsounds",
+            "ConditionList": [
+              "trial_type.negative_music",
+              "trial_type.tones"
+            ],
+            "Weights": [
+              1,
+              -1
+            ],
+            "Test": "t"
+          },
+          {
+            "Name": "posmusicvsounds",
+            "ConditionList": [
+              "trial_type.positive_music",
+              "trial_type.tones"
+            ],
+            "Weights": [
+              1,
+              -1
+            ],
             "Test": "t"
           }
+        ]
+      },
+      {
+        "Level": "Subject",
+        "Name": "subject_level",
+        "GroupBy": [
+          "subject",
+          "contrast"
+        ],
+        "Model": {
+            "X": [
+                "run"
+            ],
+            "Type": "meta",
+            "Formula": "0 + C(run)"
+        },
+        "Contrasts": [
+            {
+                "Name": "run1vrun2",
+                "ConditionList": [
+                "C(run)[1]",
+                "C(run)[2]"
+                ],
+                "Weights": [
+                1,
+                -1
+                ],
+                "Test": "t"
+            },
+            {
+                "Name": "run1vrun3",
+                "ConditionList": [
+                "C(run)[1]",
+                "C(run)[3]"
+                ],
+                "Weights": [
+                1,
+                -1
+                ],
+                "Test": "t"
+            }
+        ]
+      },
+      {
+        "Level": "Dataset",
+        "Name": "paireddiff",
+        "GroupBy": [
+          "contrast"
+        ],
+        "Model": {
+          "X": [
+            1
+          ],
+          "Type": "glm"
+        },
+        "DummyContrasts": {
+          "Test": "t"
         }
+      }
+    ]
+  },
+  "fir": {
+    "Name": "ds000171",
+    "BIDSModelVersion": "1.0.0",
+    "Input": {
+      "subject": [
+        "control01",
+        "control02",
+        "control03",
+        "control04",
+        "control05",
+        "control06",
+        "control07",
+        "control08",
+        "control09",
+        "control10",
+        "control11",
+        "control12",
+        "control13",
+        "control14",
+        "control15",
+        "control16",
+        "control17",
+        "control18",
+        "control19",
+        "control20",
+        "mdd01",
+        "mdd02",
+        "mdd03",
+        "mdd04",
+        "mdd05",
+        "mdd06",
+        "mdd07",
+        "mdd08",
+        "mdd09",
+        "mdd10",
+        "mdd11",
+        "mdd12",
+        "mdd13",
+        "mdd14",
+        "mdd15",
+        "mdd16",
+        "mdd17",
+        "mdd18",
+        "mdd19"
+      ],
+      "task": [
+        "music"
+      ],
+      "run": [
+        1,
+        2,
+        3,
+        4,
+        5
       ]
-    } 
+    },
+    "Nodes": [
+      {
+        "Level": "Run",
+        "Name": "run_level",
+        "GroupBy": [
+            "run",
+            "subject"
+        ],
+        "Transformations": {
+            "Transformer": "pybids-transforms-v1",
+            "Instructions": [
+                {
+                    "Name": "Factor",
+                    "Input": [
+                        "trial_type"
+                    ]
+                },
+                {
+                    "Name": "Convolve",
+                    "Model": "fir",
+                    "FIRDelays": [1, 2, 3],
+                    "Input": [
+                        "trial_type.*"
+                    ]
+                }
+            ]
+        },
+        "Model": {
+            "X": [
+                1,
+                "trial_type.negative_music_1",
+                "trial_type.negative_music_2", 
+                "trial_type.negative_music_3",
+                "trial_type.positive_music_1",
+                "trial_type.positive_music_2", 
+                "trial_type.positive_music_3",
+                "trial_type.response_1", 
+                "trial_type.response_2",
+                "trial_type.response_3", 
+                "trial_type.tones_1",
+                "trial_type.tones_2", 
+                "trial_type.tones_3",
+                "trans_*",
+                "rot_*",
+                "cosine*"
+            ],
+            "Type": "glm"
+        },
+        "Contrasts": [
+            {
+                "Name": "sumMusicvSounds",
+                "ConditionList": [
+                    "trial_type.positive_music_1",
+                    "trial_type.positive_music_2", 
+                    "trial_type.positive_music_3",
+                    "trial_type.negative_music_1",
+                    "trial_type.negative_music_2",
+                    "trial_type.negative_music_3", 
+                    "trial_type.tones_1",
+                    "trial_type.tones_2",
+                    "trial_type.tones_3"
+                ],
+                "Weights": [
+                    0.1667, 0.1667, 0.1667,
+                    0.1667, 0.1667, 0.1667,
+                    -0.333, -0.333, -0.333
+                ],
+                "Test": "t"
+            },
+            {
+                "Name": "lag3MusicvSounds",
+                "ConditionList": [
+                    "trial_type.positive_music_3",
+                    "trial_type.negative_music_3",
+                    "trial_type.tones_3"
+                ],
+                "Weights": [
+                    0.5,
+                    0.5,
+                    -1
+                ],
+                "Test": "t"
+            }
+        ]
+      },
+      {
+        "Level": "Subject",
+        "Name": "subject_level",
+        "GroupBy": [
+          "subject",
+          "contrast"
+        ],
+        "Model": {
+          "X": [
+            1
+          ],
+          "Type": "glm"
+        },
+        "DummyContrasts": {
+          "Test": "t"
+        }
+      },
+      {
+        "Level": "Dataset",
+        "Name": "fironesampleT", 
+        "GroupBy": [
+          "contrast"
+        ],
+        "Model": {
+          "X": [
+            1
+          ],
+          "Type": "glm"
+        },
+        "DummyContrasts": {
+          "Test": "t"
+        }
+      }
+    ]
   }
+}
